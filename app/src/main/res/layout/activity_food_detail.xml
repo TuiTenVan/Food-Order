@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <variable
+            name="FoodDetailViewModel"
+            type="com.example.foodorder.viewmodel.FoodDetailViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:ignore="ContentDescription">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:background="@color/colorPrimary">
+
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="@dimen/define_dimen_45"
+                android:layout_height="@dimen/define_dimen_45"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/define_dimen_6"
+                android:padding="@dimen/define_dimen_10"
+                android:onClick="@{() -> FoodDetailViewModel.onClickButtonBack()}"
+                android:src="@drawable/ic_back_white_36" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/food_detail_title"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_size_xnormal"
+                tools:ignore="RelativeOverlap" />
+
+            <ImageView
+                android:id="@+id/img_cart"
+                android:layout_width="@dimen/define_dimen_45"
+                android:layout_height="@dimen/define_dimen_45"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="@dimen/define_dimen_4"
+                android:padding="@dimen/define_dimen_6"
+                android:src="@drawable/ic_cart_white_36"
+                android:onClick="@{() -> FoodDetailViewModel.onClickAddToCart()}"
+                android:visibility="@{FoodDetailViewModel.isFoodInCart ? View.GONE : View.VISIBLE}" />
+        </RelativeLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.example.foodorder.widget.AspectRatioNoRadiusImageView
+                        android:id="@+id/image_food"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        app:url_image="@{FoodDetailViewModel.mFood.banner}"
+                        app:aspectRatio="0.56"
+                        app:aspectRatioEnabled="true"
+                        app:dominantMeasurement="Width" />
+
+                    <TextView
+                        android:id="@+id/tv_sale_off"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_marginTop="@dimen/define_dimen_10"
+                        android:background="@color/colorPrimary"
+                        android:padding="@dimen/define_dimen_6"
+                        android:text="@{FoodDetailViewModel.strSale}"
+                        android:visibility="@{FoodDetailViewModel.isSale ? View.VISIBLE : View.GONE}"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_size_xsmall"
+                        android:textStyle="bold"
+                        tools:ignore="RelativeOverlap" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="@dimen/define_dimen_10">
+
+                    <TextView
+                        android:id="@+id/tv_food_name"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{FoodDetailViewModel.mFood.name}"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_size_normal"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/define_dimen_5"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/price_label"
+                            android:textSize="@dimen/text_size_small" />
+
+                        <TextView
+                            android:id="@+id/tv_price_sale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="@dimen/define_dimen_5"
+                            android:layout_marginTop="@dimen/define_dimen_2"
+                            android:text="@{FoodDetailViewModel.strRealPrice}"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="@dimen/text_size_small"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvPrice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_marginStart="@dimen/define_dimen_5"
+                            android:text="@{FoodDetailViewModel.getStrPriceOld(tvPrice)}"
+                            android:visibility="@{FoodDetailViewModel.isSale ? View.VISIBLE : View.GONE}"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/text_size_small" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/define_dimen_20"
+                        android:layout_marginBottom="@dimen/define_dimen_20"
+                        android:background="@color/colorPrimaryDark" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:text="@string/description_label"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tv_food_description"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@{FoodDetailViewModel.mFood.description}"
+                        android:layout_marginTop="@dimen/define_dimen_5"
+                        android:textSize="@dimen/text_size_small" />
+
+                    <TextView
+                        android:id="@+id/tv_more_image_label"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:layout_marginTop="@dimen/define_dimen_20"
+                        android:text="@string/more_image_label"
+                        android:visibility="@{FoodDetailViewModel.isMoreImages ? View.VISIBLE : View.GONE}"
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/text_size_small"
+                        android:textStyle="bold" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcv_images"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="-10dp"
+                        android:visibility="@{FoodDetailViewModel.isMoreImages ? View.VISIBLE : View.GONE}"
+                        android:focusable="false"
+                        app:list_more_image="@{FoodDetailViewModel.listMoreImages}"
+                        android:nestedScrollingEnabled="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvAddToCart"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/define_dimen_10"
+                    android:layout_marginTop="@dimen/define_dimen_10"
+                    android:layout_marginEnd="@dimen/define_dimen_10"
+                    android:layout_marginBottom="@dimen/define_dimen_20"
+                    android:background="@drawable/bg_green_shape_corner_6"
+                    android:gravity="center"
+                    android:padding="@dimen/define_dimen_12"
+                    android:onClick="@{() -> FoodDetailViewModel.onClickAddToCart()}"
+                    android:text="@{FoodDetailViewModel.getStrStatusCart(tvAddToCart)}"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/text_size_normal" />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </RelativeLayout>
+</layout>

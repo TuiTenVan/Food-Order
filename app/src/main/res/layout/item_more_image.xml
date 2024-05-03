@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="ImageModel"
+            type="com.example.foodorder.model.Image" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/layout_item"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/define_dimen_10"
+        android:layout_marginEnd="@dimen/define_dimen_10"
+        app:cardCornerRadius="@dimen/define_dimen_6">
+
+        <com.example.foodorder.widget.AspectRatioNoRadiusImageView
+            android:id="@+id/image_food"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="centerCrop"
+            app:url_image="@{ImageModel.url}"
+            app:aspectRatio="0.75"
+            app:aspectRatioEnabled="true"
+            app:dominantMeasurement="Width" />
+
+    </androidx.cardview.widget.CardView>
+</layout>
