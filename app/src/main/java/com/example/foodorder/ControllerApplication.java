@@ -9,7 +9,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class ControllerApplication extends Application {
 
-    private static final String FIREBASE_URL = "https://foodorder-fc3d7-default-rtdb.firebaseio.com";
+    private static final String FIREBASE_URL = "https://foodorder-419b4-default-rtdb.firebaseio.com";
     private FirebaseDatabase mFirebaseDatabase;
 
     public static ControllerApplication get(Context context) {

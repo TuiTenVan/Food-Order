@@ -10,6 +10,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SearchView;
 import androidx.databinding.BaseObservable;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableArrayList;
@@ -104,6 +105,36 @@ public class HomeViewModel extends BaseObservable {
         }
     }
 
+    public ObservableField<String> getSearchHint(SearchView searchView){
+        stringHint.set(mContext.getString(R.string.hint_search_name));
+        searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+            @Override
+            public boolean onClose() {
+                searchFood("");
+                return false;
+            }
+        });
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                System.out.println(query);
+                searchView.clearFocus();
+                String strKey = query.trim();
+                searchFood(strKey);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                if (newText.isEmpty()) {
+                    searchFood("");
+                }
+                return false;
+            }
+        });
+        return stringHint;
+    }
+
     public ObservableField<String> getStringHint(EditText editText) {
         stringHint.set(mContext.getString(R.string.hint_search_name));
 
@@ -115,7 +146,11 @@ public class HomeViewModel extends BaseObservable {
             }
             return false;
         });
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
+            if(editText.getText().toString().isEmpty()){
 
+            }
+        });
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -136,16 +171,13 @@ public class HomeViewModel extends BaseObservable {
         return stringHint;
     }
 
-    public void onClickButtonSearch(EditText editText) {
-        String keyword = editText.getText().toString();
-        searchFood(keyword);
-    }
 
     private void searchFood(String key) {
         if (listFood != null) {
             listFood.clear();
         }
         getListFoodFromFirebase(key);
+
     }
 
     @BindingAdapter({"list_data"})

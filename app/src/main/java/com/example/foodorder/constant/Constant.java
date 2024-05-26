@@ -1,7 +1,7 @@
 package com.example.foodorder.constant;
 
 public interface Constant {
-    String CURRENCY = " 000 VNĐ";
+    String CURRENCY = ".000 VNĐ";
     int TYPE_PAYMENT_CASH = 1;
     String PAYMENT_METHOD_CASH = "Tiền mặt";
 

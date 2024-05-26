@@ -82,4 +82,5 @@
 
     <string name="msg_get_date_error">Lỗi đã xảy ra, vui lòng thử lại sau</string>
     <string name="msg_order_success">Đặt hàng thành công, vui lòng check đơn hàng trong phần lịch sử</string>
+    <string name="menu">MENU</string>
 </resources>
